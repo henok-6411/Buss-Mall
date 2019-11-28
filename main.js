@@ -3,6 +3,7 @@
 var pictureOne = document.getElementById('picture1');
 var pictureTwo = document.getElementById('picture2');
 var pictureThree = document.getElementById('picture3');
+var pictureContener = document.getElementById('picture-contener');
 // var pictureFour = document.getElementById('picture4');
 // var pictureFive = document.getElementById('picture5');
 // var pictureSix = document.getElementById('picture6');
@@ -40,6 +41,11 @@ function Pictures(src, name) {
   allPictures.push(this);
 
 };
+
+function handleClick(event) {
+  getRandomImage()
+  console.log(event.target);
+}
 
 new Pictures('bag', 'bag');
 new Pictures('banana', 'banana');
@@ -108,7 +114,9 @@ function getRandomImage() {
 
 
   console.log(index, index2, index3);
+  pictureContener.addEventListener('click', handleClick);
   console.log(allPictures);
+  console.table(allPictures);
 }
 getRandomImage();
 
