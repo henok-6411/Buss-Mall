@@ -3,6 +3,7 @@
 var pictureOne = document.getElementById('picture1');
 var pictureTwo = document.getElementById('picture2');
 var pictureThree = document.getElementById('picture3');
+var pictureContener = document.getElementById('picture-contener');
 // var pictureFour = document.getElementById('picture4');
 // var pictureFive = document.getElementById('picture5');
 // var pictureSix = document.getElementById('picture6');
@@ -35,11 +36,16 @@ pictureThree.name = 'bathroom';
 
 var allPictures = [];
 function Pictures(src, name) {
-  this.src = `../image/${src}.jpg`;
+  this.src = `/images/${src}.jpg`;
   this.name = name;
   allPictures.push(this);
 
 };
+
+function handleClick(event) {
+  getRandomImage()
+  console.log(event.target);
+}
 
 new Pictures('bag', 'bag');
 new Pictures('banana', 'banana');
@@ -83,19 +89,34 @@ function getRandomImage() {
   var index = randomIndex(allPictures.length - 1);
 
 
-  pictureOne.src = allPictures[index].src;
-  pictureOne.alt = allPictures[index].alt;
-  pictureOne.name = allPictures[index].name;
   var index2 = randomIndex(allPictures.length - 1);
   pictureTwo.src = allPictures[index2].src;
   pictureTwo.alt = allPictures[index2].alt;
   pictureTwo.name = allPictures[index2].name;
+
+
   var index3 = randomIndex(allPictures.length - 1);
+
+  while (index === index2) {
+    index = randomIndex(allPictures.length - 1);
+  }
+
+  pictureOne.src = allPictures[index].src;
+  pictureOne.alt = allPictures[index].alt;
+  pictureOne.name = allPictures[index].name;
+  while (index === index3 || index2 === index3) {
+    index3 = randomIndex(allPictures.length - 1);
+  }
   pictureThree.src = allPictures[index3].src;
   pictureThree.alt = allPictures[index3].alt;
   pictureThree.name = allPictures[index3].name;
 
+
+
   console.log(index, index2, index3);
+  pictureContener.addEventListener('click', handleClick);
+  console.log(allPictures);
+  console.table(allPictures);
 }
 getRandomImage();
 
