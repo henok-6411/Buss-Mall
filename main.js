@@ -38,13 +38,22 @@ var allPictures = [];
 function Pictures(src, name) {
   this.src = `/images/${src}.jpg`;
   this.name = name;
+  this.clicked = 0;
+  this.viewed = 0;
   allPictures.push(this);
 
 };
 
 function handleClick(event) {
   getRandomImage()
-  console.log(event.target);
+  var data = event.target.name;
+  console.log(data, 'was clicked');
+  for (var i = 0; i < allPictures.length; i++) {
+    if (data === allPictures[i]) {
+      allPictures[i].clicked++;
+    }
+    console.log(data);
+  }
 }
 
 new Pictures('bag', 'bag');
@@ -93,6 +102,7 @@ function getRandomImage() {
   pictureTwo.src = allPictures[index2].src;
   pictureTwo.alt = allPictures[index2].alt;
   pictureTwo.name = allPictures[index2].name;
+  allPictures[index2].viewed++;
 
 
   var index3 = randomIndex(allPictures.length - 1);
@@ -104,19 +114,20 @@ function getRandomImage() {
   pictureOne.src = allPictures[index].src;
   pictureOne.alt = allPictures[index].alt;
   pictureOne.name = allPictures[index].name;
+  allPictures[index].viewed++;
   while (index === index3 || index2 === index3) {
     index3 = randomIndex(allPictures.length - 1);
   }
   pictureThree.src = allPictures[index3].src;
   pictureThree.alt = allPictures[index3].alt;
   pictureThree.name = allPictures[index3].name;
+  allPictures[index3].viewed++;
 
 
-
-  console.log(index, index2, index3);
+  // console.log(index, index2, index3);
   pictureContener.addEventListener('click', handleClick);
-  console.log(allPictures);
+  //console.log(allPictures);
   console.table(allPictures);
+
 }
 getRandomImage();
-
