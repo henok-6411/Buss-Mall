@@ -2,19 +2,16 @@ body{
   background-color: #333333;
 }
 img{
-  border: 2px white;
+  border: 10px solid darkgrey;
+ 
   width: 250px;
   height: 250px;
   margin: 10px;
   
 }
 #header{
-  border: solid whitesmoke;
-  text-align:center;
   padding-left: 80px;
-  margin-top: 40px;
-
-  
+  margin-top: 40px; 
 }
 h1{
   text-align: center;
@@ -27,20 +24,19 @@ h1{
 li{
   display: inline;
   color: white;
-  margin: 20px;
   font-size: 20px;
   font-family: 'Alegreya Sans SC', sans-serif;
-  padding: 20px;
-  float: right;
+  margin:40px;
+  
+}
+ul{
+  text-align:center;
 }
 li:hover{
   color:lightgray;
   text-decoration: underline;
-  
 }
 
-#picture-contener{
-  border: 1px solid whitesmoke;
+section{
   text-align: center;
-  margin-top: 100px;
 }

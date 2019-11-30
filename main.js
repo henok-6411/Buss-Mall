@@ -127,7 +127,8 @@ function handleClick(event) {
   for (var i = 0; i < allPictures.length; i++) {
     if (data === allPictures[i].name) {
       allPictures[i].clicked = allPictures[i].clicked + 1;
-      if (allPictures[i].clicked > 24) {
+      if (allPictures[i].clicked === 25) {
+        alert('thank you for participating on our survey!!')
         // change content to graph
         generateGraph();
       }
