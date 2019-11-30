@@ -44,38 +44,30 @@ function Pictures(src, name) {
 
 };
 
-function handleClick(event) {
-  getRandomImage()
-  var data = event.target.name;
-  console.log(data, 'was clicked');
-  for (var i = 0; i < allPictures.length; i++) {
-    if (data === allPictures[i]) {
-      allPictures[i].clicked++;
-    }
-    console.log(data);
-  }
+
+function creatNewImage() {
+  new Pictures('bag', 'bag');
+  new Pictures('banana', 'banana');
+  new Pictures('bathroom', 'bathroom');
+  new Pictures('boots', 'boots');
+  new Pictures('breakfast', 'breakfast');
+  new Pictures('bubblegum', 'bubblegum');
+  new Pictures('chair', 'chair');
+  new Pictures('cthulhu', 'cthulhu');
+  new Pictures('dog-duck', 'dog-duck');
+  new Pictures('dragon', 'dragon');
+  new Pictures('pen', 'pen');
+  new Pictures('pet-sweep', 'pet-sweep');
+  new Pictures('scissors', 'scissors');
+  new Pictures('shark', 'shark');
+  new Pictures('sweep', 'sweep');
+  new Pictures('tauntaun', 'tauntaun');
+  new Pictures('unicorn', 'unicorn');
+  new Pictures('usb', 'usb');
+  new Pictures('water-can', 'water-can');
+  new Pictures('wine-glass', 'wine-glass');
 }
 
-new Pictures('bag', 'bag');
-new Pictures('banana', 'banana');
-new Pictures('bathroom', 'bathroom');
-new Pictures('boots', 'boots');
-new Pictures('breakfast', 'breakfast');
-new Pictures('bubblegum', 'bubblegum');
-new Pictures('chair', 'chair');
-new Pictures('cthulhu', 'cthulhu');
-new Pictures('dog-duck', 'dog-duck');
-new Pictures('dragon', 'dragon');
-new Pictures('pen', 'pen');
-new Pictures('pet-sweep', 'pet-sweep');
-new Pictures('scissors', 'scissors');
-new Pictures('shark', 'shark');
-new Pictures('sweep', 'sweep');
-new Pictures('tauntaun', 'tauntaun');
-new Pictures('unicorn', 'unicorn');
-new Pictures('usb', 'usb');
-new Pictures('water-can', 'water-can');
-new Pictures('wine-glass', 'wine-glass');
 
 
 
@@ -87,9 +79,7 @@ new Pictures('wine-glass', 'wine-glass');
 
 
 
-
-
-console.log(allPictures);
+//console.log(allPictures);
 
 function randomIndex(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -124,10 +114,35 @@ function getRandomImage() {
   allPictures[index3].viewed++;
 
 
-  // console.log(index, index2, index3);
-  pictureContener.addEventListener('click', handleClick);
-  //console.log(allPictures);
-  console.table(allPictures);
 
+  // console.log(index, index2, index3);
+  console.table(allPictures);
 }
+
+
+function handleClick(event) {
+  getRandomImage()
+  var data = event.target.name;
+
+  for (var i = 0; i < allPictures.length; i++) {
+    if (data === allPictures[i].name) {
+      allPictures[i].clicked = allPictures[i].clicked + 1;
+      if (allPictures[i].clicked > 24) {
+        // change content to graph
+        generateGraph();
+      }
+      break;
+    }
+    getRandomImage();
+
+  }
+}
+
+function generateGraph() {
+  console.log("generating graph")
+}
+
+creatNewImage();
+// console.table(allPictures);
 getRandomImage();
+pictureContener.addEventListener('click', handleClick);
