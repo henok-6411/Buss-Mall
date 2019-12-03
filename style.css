@@ -40,3 +40,8 @@ li:hover{
 section{
   text-align: center;
 }
+#list-allpictures{
+  /* border: solid whitesmoke; */
+  display: list-item;
+  
+}
