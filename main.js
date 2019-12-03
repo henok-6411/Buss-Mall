@@ -3,24 +3,10 @@
 var pictureOne = document.getElementById('picture1');
 var pictureTwo = document.getElementById('picture2');
 var pictureThree = document.getElementById('picture3');
+var numOfClicked = 5;
+
 var pictureContener = document.getElementById('picture-contener');
-// var pictureFour = document.getElementById('picture4');
-// var pictureFive = document.getElementById('picture5');
-// var pictureSix = document.getElementById('picture6');
-// var pictureSeven = document.getElementById('picture7');
-// var pictureEight = document.getElementById('picture8');
-// var pictureNine = document.getElementById('picture9');
-// var pictureTen = document.getElementById('picture10');
-// var pictureEleven = document.getElementById('picture11');
-// var pictureTwelve = document.getElementById('picture12');
-// var pictureThirteen = document.getElementById('picture13');
-// var pictureFourteen = document.getElementById('picture14');
-// var pictureFifteen = document.getElementById('picture15');
-// var pictureSisteen = document.getElementById('picture16');
-// var pictureSeventeen = document.getElementById('picture17');
-// var pictureEighteen = document.getElementById('picture18');
-// var pictureNineteen = document.getElementById('picture19');
-// var pictureTwenty = document.getElementById('picture20');
+var nameContener = document.getElementById('name-contener');
 
 pictureOne.src = '/images/bag.jpg';
 pictureOne.alt = 'bag';
@@ -40,6 +26,9 @@ function Pictures(src, name) {
   this.name = name;
   this.clicked = 0;
   this.viewed = 0;
+
+  // this.noOfImage = [];
+  // this.eachTimeClicked = [];
   allPictures.push(this);
 
 };
@@ -67,17 +56,6 @@ function creatNewImage() {
   new Pictures('water-can', 'water-can');
   new Pictures('wine-glass', 'wine-glass');
 }
-
-
-
-
-
-
-
-
-
-
-
 
 //console.log(allPictures);
 
@@ -112,38 +90,47 @@ function getRandomImage() {
   pictureThree.alt = allPictures[index3].alt;
   pictureThree.name = allPictures[index3].name;
   allPictures[index3].viewed++;
-
-
-
   // console.log(index, index2, index3);
   console.table(allPictures);
+
+  // Pictures.noOfImage.push(this);
 }
 
+pictureContener.addEventListener('click', handleClick);
 
 function handleClick(event) {
   getRandomImage()
-  var data = event.target.name;
+  numOfClicked--;
 
-  for (var i = 0; i < allPictures.length; i++) {
-    if (data === allPictures[i].name) {
-      allPictures[i].clicked = allPictures[i].clicked + 1;
-      if (allPictures[i].clicked === 25) {
-        alert('thank you for participating on our survey!!')
-        // change content to graph
-        generateGraph();
+  if (numOfClicked !== 0) {
+    var data = event.target.name;
+    for (var i = 0; i < allPictures.length; i++) {
+      if (data === allPictures[i].name) {
+        allPictures[i].clicked++;
+
       }
-      break;
     }
-    getRandomImage();
-
   }
-}
+  else {
 
-function generateGraph() {
-  console.log("generating graph")
-}
+    pictureContener.removeEventListener('click', handleClick);
+    console.log('stoped!');
+    surveyResult();
+  }
 
+}
+function surveyResult() {
+  var imageResult = document.getElementById('list-allpictures');
+  var ulEl = document.createElement('ul');
+  for (var i = 0; i < allPictures.length; i++) {
+    var liEl = document.createElement('li');
+    liEl.textContent = `${allPictures[i].name}: ${allPictures[i].clicked} clicked and ${allPictures[i].viewed} viewed.`;
+    ulEl.appendChild(liEl);
+  }
+  imageResult.appendChild(ulEl);
+
+}
 creatNewImage();
 // console.table(allPictures);
 getRandomImage();
-pictureContener.addEventListener('click', handleClick);
+
