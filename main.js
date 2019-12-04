@@ -124,33 +124,33 @@ function handleClick(event) {
   }
 
 }
-// function hide(elem) {
-//   elem.style.display = 'none';
-// }
-// //Making a chart!!!!
-// var ctx = document.getElementById('myChart').getContext('2d');
-// function makeChart() {
-//   new Chart(ctx, {
-//     // The type of chart we want to create
-//     type: 'line',
+function hide(elem) {
+  elem.style.display = 'none';
+}
+//Making a chart!!!!
+var ctx = document.getElementById('myChart').getContext('2d');
+function makeChart() {
+  new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
 
-//     // The data for our dataset
-//     data: {
-//       labels: [allPictures],
-//       // labels: ['bag', 'banana', 'bathroom', 'boots', 'breadfast', 'bubblegum', 'chair'],
-//       datasets: [{
-//         label: 'My First dataset',
-//         backgroundColor: 'rgb(255, 99, 132)',
-//         borderColor: 'rgb(255, 99, 132)',
-//         data: [0, 10, 5, 2, 20, 30, 45]
-//       }]
-//     },
+    // The data for our dataset
+    data: {
+      labels: [allPictures],
+      // labels: ['bag', 'banana', 'bathroom', 'boots', 'breadfast', 'bubblegum', 'chair'],
+      datasets: [{
+        label: 'My First dataset',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: [0, 10, 5, 2, 20, 30, 45]
+      }]
+    },
 
-//     // Configuration options go here
-//     options: {}
-//   });
-// }
-// makeChart()
+    // Configuration options go here
+    options: {}
+  });
+}
+makeChart()
 function surveyResult() {
   var ulEl = document.createElement('ul');
   for (var i = 0; i < allPictures.length; i++) {
