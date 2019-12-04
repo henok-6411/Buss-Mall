@@ -3,7 +3,9 @@
 var pictureOne = document.getElementById('picture1');
 var pictureTwo = document.getElementById('picture2');
 var pictureThree = document.getElementById('picture3');
-var numOfClicked = 5;
+var imageResult = document.getElementById('list-allpictures');
+var ChartName = document.getElementById('myChart');
+var numOfClicked = 25;
 
 var pictureContener = document.getElementById('picture-contener');
 var nameContener = document.getElementById('name-contener');
@@ -21,6 +23,7 @@ pictureThree.alt = 'bathroom';
 pictureThree.name = 'bathroom';
 
 var allPictures = [];
+var graphName = [];
 function Pictures(src, name) {
   this.src = `/images/${src}.jpg`;
   this.name = name;
@@ -30,6 +33,7 @@ function Pictures(src, name) {
   // this.noOfImage = [];
   // this.eachTimeClicked = [];
   allPictures.push(this);
+
 
 };
 
@@ -114,13 +118,40 @@ function handleClick(event) {
   else {
 
     pictureContener.removeEventListener('click', handleClick);
-    console.log('stoped!');
+
     surveyResult();
+    hide(pictureContener);
   }
 
 }
+// function hide(elem) {
+//   elem.style.display = 'none';
+// }
+// //Making a chart!!!!
+// var ctx = document.getElementById('myChart').getContext('2d');
+// function makeChart() {
+//   new Chart(ctx, {
+//     // The type of chart we want to create
+//     type: 'line',
+
+//     // The data for our dataset
+//     data: {
+//       labels: [allPictures],
+//       // labels: ['bag', 'banana', 'bathroom', 'boots', 'breadfast', 'bubblegum', 'chair'],
+//       datasets: [{
+//         label: 'My First dataset',
+//         backgroundColor: 'rgb(255, 99, 132)',
+//         borderColor: 'rgb(255, 99, 132)',
+//         data: [0, 10, 5, 2, 20, 30, 45]
+//       }]
+//     },
+
+//     // Configuration options go here
+//     options: {}
+//   });
+// }
+// makeChart()
 function surveyResult() {
-  var imageResult = document.getElementById('list-allpictures');
   var ulEl = document.createElement('ul');
   for (var i = 0; i < allPictures.length; i++) {
     var liEl = document.createElement('li');
@@ -133,4 +164,5 @@ function surveyResult() {
 creatNewImage();
 // console.table(allPictures);
 getRandomImage();
+
 
