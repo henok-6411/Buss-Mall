@@ -8,6 +8,7 @@ img{
   height: 250px;
   margin: 10px;
   
+  
 }
 #header{
   padding-left: 80px;
@@ -21,7 +22,8 @@ h1{
   margin-top: 10px;
 
 }
-li{
+header.ul.li{
+
   display: inline;
   color: white;
   font-size: 20px;
@@ -41,7 +43,7 @@ section{
   text-align: center;
 }
 #list-allpictures{
-  /* border: solid whitesmoke; */
-  display: list-item;
+
+  color: whitesmoke;
   
 }
