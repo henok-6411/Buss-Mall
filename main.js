@@ -6,23 +6,28 @@ var pictureThree = document.getElementById('picture3');
 var imageResult = document.getElementById('list-allpictures');
 var voteViewCount = document.getElementById('vote');
 var ChartName = document.getElementById('myChart');
+
+
 var uniqueIndex = [];
 var numOfClicked = 25;
+var previous = 0;
+var previous2 = 0;
+var previous3 = 0;
 
 var pictureContener = document.getElementById('picture-contener');
 var nameContener = document.getElementById('name-contener');
 
-pictureOne.src = '/images/bag.jpg';
-pictureOne.alt = 'bag';
-pictureOne.name = 'bag';
+// pictureOne.src = '/images/bag.jpg';
+// pictureOne.alt = 'bag';
+// pictureOne.name = 'bag';
 
-pictureTwo.src = '/images/banana.jpg';
-pictureTwo.alt = 'banana';
-pictureTwo.name = 'banana';
+// pictureTwo.src = '/images/banana.jpg';
+// pictureTwo.alt = 'banana';
+// pictureTwo.name = 'banana';
 
-pictureThree.src = '/images/bathroom.jpg';
-pictureThree.alt = 'bathroom';
-pictureThree.name = 'bathroom';
+// pictureThree.src = '/images/bathroom.jpg';
+// pictureThree.alt = 'bathroom';
+// pictureThree.name = 'bathroom';
 
 var allPictures = [];
 
@@ -70,52 +75,68 @@ function randomIndex(max) {
 }
 function getRandomImage() {
   var index = randomIndex(allPictures.length - 1);
+  while (index === previous || index === previous2 || index === previous3) {
+    var index = randomIndex(allPictures.length - 1);
+  }
 
 
   var index2 = randomIndex(allPictures.length - 1);
+  while (index2 === previous || index2 === previous2 || index2 === previous3 || index2 === index) {
+    var index2 = randomIndex(allPictures.length - 1);
+
+  }
   pictureTwo.src = allPictures[index2].src;
   pictureTwo.alt = allPictures[index2].alt;
   pictureTwo.name = allPictures[index2].name;
   allPictures[index2].viewed++;
 
 
+
   var index3 = randomIndex(allPictures.length - 1);
+  while (index3 === index2 || index3 === index || index3 === previous || index3 === previous2 || index3 === previous3) {
+    var index3 = randomIndex(allPictures.length - 1);
 
-  while (index === index2) {
-    index = randomIndex(allPictures.length - 1);
   }
-
+  console.log(index)
   pictureOne.src = allPictures[index].src;
   pictureOne.alt = allPictures[index].alt;
   pictureOne.name = allPictures[index].name;
   allPictures[index].viewed++;
-  while (index === index3 || index2 === index3) {
-    index3 = randomIndex(allPictures.length - 1);
-  }
+
   pictureThree.src = allPictures[index3].src;
   pictureThree.alt = allPictures[index3].alt;
   pictureThree.name = allPictures[index3].name;
   allPictures[index3].viewed++;
-  // console.log(index, index2, index3);
-  console.table(allPictures);
+  console.log(previous, previous2, previous3);
+  // console.table(allPictures);
+  previous = 0;
+  previous2 = 0;
+  previous3 = 0;
+
+  console.log(previous, previous2, previous3);
+  previous = index;
+  previous2 = index2;
+  previous3 = index3;
+
+  console.log(previous, previous2, previous3);
 
   // Pictures.noOfImage.push(this);
 }
 
-pictureContener.addEventListener('click', handleClick);
-function getUnique() {
-  while (uniqueIndex.length < 6) {
-    var Random = randomIndex(allPictures.length);
-    if (!uniqueIndex.includes(Random)) {
-      uniqueIndex.push(Random);
-    }
-  }
-}
-function removeThree() {
-  for (var i = 0; i < 3; i++) {
-    uniqueIndex.shift();
-  }
-}
+
+// function getUnique() {
+//   while (uniqueIndex.length < 6) {
+//     var Random = randomIndex(allPictures.length);
+//     if (!uniqueIndex.includes(Random)) {
+//       uniqueIndex.push(Random);
+//     }
+//   }
+// }
+// function removeThree() {
+//   for (var i = 0; i < 3; i++) {
+//     uniqueIndex.shift();
+//   }
+// }
 
 function handleClick(event) {
 
@@ -129,10 +150,13 @@ function handleClick(event) {
     var data = event.target.name;
     for (var i = 0; i < allPictures.length; i++) {
       if (data === allPictures[i].name) {
-        getUnique();
-        removeThree();
+
+        // getUnique();
+        // removeThree();
         allPictures[i].clicked++;
         console.log(allPictures.clicked);
+        var newString = JSON.stringify(allPictures);
+        localStorage.setItem('allpictures', newString);
       }
     }
   }
@@ -217,7 +241,24 @@ function graphName() {
 // }
 creatNewImage();
 // console.table(allPictures);
-
+pictureContener.addEventListener('click', handleClick);
 getRandomImage();
 
 
+////// save to our locacal storage 
+var newString = JSON.stringify(allPictures);
+localStorage.setItem('allpictures', newString);
+// var getPictures = localStorage.getItem('allpictures');
+// var parsedClicked = JSON.parse(getPictures);
+
+function checkLocalStorage() {
+  if (localStorage.getItem('allpictures')) {
+    var getPictures = localStorage.getItem('allpictures');
+    var parsedClicked = JSON.parse(getPictures);
+    allPictures = parsedClicked;
+
+  }
+  else {
+    getRandomImage();
+  }
+}
