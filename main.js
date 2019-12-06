@@ -4,9 +4,10 @@ var pictureOne = document.getElementById('picture1');
 var pictureTwo = document.getElementById('picture2');
 var pictureThree = document.getElementById('picture3');
 var imageResult = document.getElementById('list-allpictures');
-
+var voteViewCount = document.getElementById('vote');
 var ChartName = document.getElementById('myChart');
-var numOfClicked = 5;
+var uniqueIndex = [];
+var numOfClicked = 25;
 
 var pictureContener = document.getElementById('picture-contener');
 var nameContener = document.getElementById('name-contener');
@@ -102,15 +103,34 @@ function getRandomImage() {
 }
 
 pictureContener.addEventListener('click', handleClick);
+function getUnique() {
+  while (uniqueIndex.length < 6) {
+    var Random = randomIndex(allPictures.length);
+    if (!uniqueIndex.includes(Random)) {
+      uniqueIndex.push(Random);
+    }
+  }
+}
+function removeThree() {
+  for (var i = 0; i < 3; i++) {
+    uniqueIndex.shift();
+  }
+}
 
 function handleClick(event) {
+
   getRandomImage()
+
   numOfClicked--;
+  console.log(numOfClicked);
+  voteViewCount.textContent = ` you have left ${numOfClicked}  clicked.`;
 
   if (numOfClicked !== 0) {
     var data = event.target.name;
     for (var i = 0; i < allPictures.length; i++) {
       if (data === allPictures[i].name) {
+        getUnique();
+        removeThree();
         allPictures[i].clicked++;
         console.log(allPictures.clicked);
       }
@@ -122,12 +142,15 @@ function handleClick(event) {
 
     // surveyResult();
     hide(pictureContener);
+
     graphName();
     makeChart();
   }
 
 }
-
+function show(elem) {
+  elem.style.display = 'block';
+}
 
 function hide(elem) {
   elem.style.display = 'none';
@@ -138,6 +161,7 @@ var allGraphViewed = [];
 var allGraphName = [];
 
 function makeChart() {
+
   var ctx = document.getElementById('myChart').getContext('2d');
   var chart = new Chart(ctx, {
     type: 'bar',
@@ -193,6 +217,7 @@ function graphName() {
 // }
 creatNewImage();
 // console.table(allPictures);
+
 getRandomImage();
 
 
