@@ -218,7 +218,7 @@ function graphName() {
     allGraphViewed.push(allPictures[i].viewed);
     allGraphClicked.push(allPictures[i].clicked);
   }
-  // console.log(clicked);
+  //  console.log(clicked);
 
 }
 // function graphClicked() {
