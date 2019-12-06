@@ -4,7 +4,9 @@ var pictureOne = document.getElementById('picture1');
 var pictureTwo = document.getElementById('picture2');
 var pictureThree = document.getElementById('picture3');
 var imageResult = document.getElementById('list-allpictures');
+var voteViewCount = document.getElementById('vote');
 var ChartName = document.getElementById('myChart');
+var uniqueIndex = [];
 var numOfClicked = 25;
 
 var pictureContener = document.getElementById('picture-contener');
@@ -23,7 +25,7 @@ pictureThree.alt = 'bathroom';
 pictureThree.name = 'bathroom';
 
 var allPictures = [];
-var graphName = [];
+
 function Pictures(src, name) {
   this.src = `/images/${src}.jpg`;
   this.name = name;
@@ -101,17 +103,36 @@ function getRandomImage() {
 }
 
 pictureContener.addEventListener('click', handleClick);
+function getUnique() {
+  while (uniqueIndex.length < 6) {
+    var Random = randomIndex(allPictures.length);
+    if (!uniqueIndex.includes(Random)) {
+      uniqueIndex.push(Random);
+    }
+  }
+}
+function removeThree() {
+  for (var i = 0; i < 3; i++) {
+    uniqueIndex.shift();
+  }
+}
 
 function handleClick(event) {
+
   getRandomImage()
+
   numOfClicked--;
+  console.log(numOfClicked);
+  voteViewCount.textContent = ` you have left ${numOfClicked}  clicked.`;
 
   if (numOfClicked !== 0) {
     var data = event.target.name;
     for (var i = 0; i < allPictures.length; i++) {
       if (data === allPictures[i].name) {
+        getUnique();
+        removeThree();
         allPictures[i].clicked++;
-
+        console.log(allPictures.clicked);
       }
     }
   }
@@ -119,30 +140,45 @@ function handleClick(event) {
 
     pictureContener.removeEventListener('click', handleClick);
 
-    surveyResult();
+    // surveyResult();
     hide(pictureContener);
+
+    graphName();
+    makeChart();
   }
 
 }
+function show(elem) {
+  elem.style.display = 'block';
+}
+
 function hide(elem) {
   elem.style.display = 'none';
 }
 //Making a chart!!!!
-var ctx = document.getElementById('myChart').getContext('2d');
-function makeChart() {
-  new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'line',
+var allGraphClicked = [];
+var allGraphViewed = [];
+var allGraphName = [];
 
-    // The data for our dataset
+function makeChart() {
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var chart = new Chart(ctx, {
+    type: 'bar',
+
     data: {
-      labels: [allPictures],
-      // labels: ['bag', 'banana', 'bathroom', 'boots', 'breadfast', 'bubblegum', 'chair'],
+      labels: allGraphName,
       datasets: [{
-        label: 'My First dataset',
-        backgroundColor: 'rgb(255, 99, 132)',
+        label: '# of clicked ',
+        backgroundColor: 'white',
         borderColor: 'rgb(255, 99, 132)',
-        data: [0, 10, 5, 2, 20, 30, 45]
+        data: allGraphClicked,
+      },
+      {
+        label: '# of viewed',
+        backgroundColor: 'white',
+        borderColor: 'rgb(255, 99, 132)',
+        data: allGraphViewed
       }]
     },
 
@@ -150,19 +186,38 @@ function makeChart() {
     options: {}
   });
 }
-makeChart()
-function surveyResult() {
-  var ulEl = document.createElement('ul');
+// chartbody.addEventListener('chartTable', handleChart);
+function graphName() {
   for (var i = 0; i < allPictures.length; i++) {
-    var liEl = document.createElement('li');
-    liEl.textContent = `${allPictures[i].name}: ${allPictures[i].clicked} clicked and ${allPictures[i].viewed} viewed.`;
-    ulEl.appendChild(liEl);
+
+    allGraphName.push(allPictures[i].name);
+    allGraphViewed.push(allPictures[i].viewed);
+    allGraphClicked.push(allPictures[i].clicked);
   }
-  imageResult.appendChild(ulEl);
+  // console.log(clicked);
 
 }
+// function graphClicked() {
+//   for (var i = 0; i < allPictures.length; i++) {
+//     handleClick(event)++;
+//   }
+//   allGraphClicked.push(graphClicked);
+// }
+
+//function of list result.......
+// function surveyResult() {
+//   var ulEl = document.createElement('ul');
+//   for (var i = 0; i < allPictures.length; i++) {
+//     var liEl = document.createElement('li');
+//     liEl.textContent = `${allPictures[i].name}: ${allPictures[i].clicked} clicked and ${allPictures[i].viewed} viewed.`;
+//     ulEl.appendChild(liEl);
+//   }
+//   imageResult.appendChild(ulEl);
+
+// }
 creatNewImage();
 // console.table(allPictures);
+
 getRandomImage();
 
 
