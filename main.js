@@ -6,6 +6,8 @@ var pictureThree = document.getElementById('picture3');
 var imageResult = document.getElementById('list-allpictures');
 var voteViewCount = document.getElementById('vote');
 var ChartName = document.getElementById('myChart');
+
+
 var uniqueIndex = [];
 var numOfClicked = 25;
 var previous = 0;
@@ -148,10 +150,13 @@ function handleClick(event) {
     var data = event.target.name;
     for (var i = 0; i < allPictures.length; i++) {
       if (data === allPictures[i].name) {
+
         // getUnique();
         // removeThree();
         allPictures[i].clicked++;
         console.log(allPictures.clicked);
+        var newString = JSON.stringify(allPictures);
+        localStorage.setItem('allpictures', newString);
       }
     }
   }
@@ -240,3 +245,20 @@ pictureContener.addEventListener('click', handleClick);
 getRandomImage();
 
 
+////// save to our locacal storage 
+var newString = JSON.stringify(allPictures);
+localStorage.setItem('allpictures', newString);
+// var getPictures = localStorage.getItem('allpictures');
+// var parsedClicked = JSON.parse(getPictures);
+
+function checkLocalStorage() {
+  if (localStorage.getItem('allpictures')) {
+    var getPictures = localStorage.getItem('allpictures');
+    var parsedClicked = JSON.parse(getPictures);
+    allPictures = parsedClicked;
+
+  }
+  else {
+    getRandomImage();
+  }
+}
