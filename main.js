@@ -8,7 +8,7 @@ var voteViewCount = document.getElementById('vote');
 var ChartName = document.getElementById('myChart');
 
 
-var uniqueIndex = [];
+// var uniqueIndex = [];
 var numOfClicked = 25;
 var previous = 0;
 var previous2 = 0;
@@ -194,7 +194,7 @@ function makeChart() {
       labels: allGraphName,
       datasets: [{
         label: '# of clicked ',
-        backgroundColor: 'white',
+        backgroundColor: 'rgb(165, 42, 42)',
         borderColor: 'rgb(255, 99, 132)',
         data: allGraphClicked,
       },
@@ -246,8 +246,8 @@ getRandomImage();
 
 
 ////// save to our locacal storage 
-var newString = JSON.stringify(allPictures);
-localStorage.setItem('allpictures', newString);
+// var newString = JSON.stringify(allPictures);
+// localStorage.setItem('allpictures', newString);
 // var getPictures = localStorage.getItem('allpictures');
 // var parsedClicked = JSON.parse(getPictures);
 
