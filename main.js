@@ -32,7 +32,7 @@ var nameContener = document.getElementById('name-contener');
 var allPictures = [];
 
 function Pictures(src, name) {
-  this.src = `/images/${src}.jpg`;
+  this.src = `./images/${src}.jpg`;
   this.name = name;
   this.clicked = 0;
   this.viewed = 0;
